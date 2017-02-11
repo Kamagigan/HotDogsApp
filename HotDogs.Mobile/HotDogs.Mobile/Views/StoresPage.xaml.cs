@@ -2,9 +2,9 @@
 
 namespace HotDogs.Mobile.Views
 {
-    public partial class MainPage : ContentPage
+    public partial class StoresPage : ContentPage
     {
-        public MainPage()
+        public StoresPage()
         {
             InitializeComponent();
         }
