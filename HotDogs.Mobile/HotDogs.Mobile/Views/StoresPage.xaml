@@ -3,7 +3,39 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="HotDogs.Mobile.Views.StoresPage">
+             xmlns:converters="clr-namespace:HotDogs.Mobile.Converters"
+             x:Class="HotDogs.Mobile.Views.StoresPage"
+             Title="Hot Dogs Stores">
 
-    <Label Text="{Binding Text}" HorizontalOptions="Center" VerticalOptions="Center" />
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:Base64ImageSourceConverter x:Key="Base64ToImageConverter" />
+            <DataTemplate x:Key="StoresTemplate">
+                <ViewCell>
+                    <ViewCell.View>
+                        <Grid Margin="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackLayout Orientation="Horizontal">
+                                <Image x:Name="StoreLogo" Source="{Binding Logo, Converter={StaticResource Base64ToImageConverter}}" Grid.Column="0" />
+                                <StackLayout Grid.Column="1" Margin="5,0,5,0" VerticalOptions="Start">
+                                    <Label Text="{Binding Name}" FontSize="18" TextColor="#58666e" FontAttributes="Bold" />
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Location : " FontSize="14" TextColor="#58666e" />
+                                        <Label Text="{Binding Location}" FontSize="14" TextColor="#98a6ad" Margin="5, 0, 0, 0" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </Grid>
+                    </ViewCell.View>
+                </ViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ListView x:Name="HotDogsStoresList" ItemTemplate="{StaticResource StoresTemplate}" ItemsSource="{Binding Path=Stores}" RowHeight="80">
+    </ListView>
 </ContentPage>

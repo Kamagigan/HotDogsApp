@@ -1,25 +1,43 @@
-﻿using Prism.Commands;
+﻿using HotDogs.Mobile.Models;
+using HotDogs.Mobile.Services;
 using Prism.Mvvm;
+using Prism.Navigation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace HotDogs.Mobile.ViewModels
 {
-    public class StoresPageViewModel : BindableBase
+    public class StoresPageViewModel : BindableBase, INavigationAware
     {
-        public StoresPageViewModel()
+        public StoresPageViewModel(INavigationService navigationService, IStoresApiService api)
         {
-            Text = "Hello you !";
+            _api = api;
+            _navigationService = navigationService;
         }
 
-        private string _text;
+        private readonly INavigationService _navigationService;
+        private readonly IStoresApiService _api;
 
-        public string Text
+        private ObservableCollection<Store> _stores;
+
+        public ObservableCollection<Store> Stores
         {
-            get { return this._text; }
-            set { SetProperty(ref _text, value); }
+            get => _stores;
+            set { SetProperty(ref _stores, value); }
         }
 
+        public void OnNavigatedFrom(NavigationParameters parameters)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async void OnNavigatedTo(NavigationParameters parameters)
+        {
+            if (Stores == null)
+            {
+                var result = await _api.GetAllStores();
+                Stores = new ObservableCollection<Store>(result);
+            }
+        }
     }
 }

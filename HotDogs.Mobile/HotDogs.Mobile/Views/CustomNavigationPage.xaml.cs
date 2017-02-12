@@ -11,11 +11,11 @@ namespace HotDogs.Mobile.Views
             InitializeComponent();
         }
 
-        // Continue d'ajouter les pages evrs lesquels on navigue dans le stack
+        // Continue d'ajouter les pages vers lesquels on navigue dans le stack
         // Returns false permets de prévenir la "fausse" navigation d'une page MatserDetail en tant que page root
         public bool ClearNavigationStackOnNavigation
         {
-            get { return false; }
+            get { return true; }
         }
     }
 }

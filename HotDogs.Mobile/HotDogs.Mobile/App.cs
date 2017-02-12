@@ -1,5 +1,7 @@
-﻿using HotDogs.Mobile.Views;
+﻿using HotDogs.Mobile.Services;
+using HotDogs.Mobile.Views;
 using Prism.Unity;
+using Microsoft.Practices.Unity;
 using Xamarin.Forms;
 
 namespace HotDogs.Mobile
@@ -16,7 +18,10 @@ namespace HotDogs.Mobile
 
         protected override void RegisterTypes()
         {
-            //Container.RegisterTypeForNavigation<NavigationPage>();
+            // Services
+            Container.RegisterType<IStoresApiService, StoresApiService>();
+
+            // Pages
             Container.RegisterTypeForNavigation<StoresPage>();
             Container.RegisterTypeForNavigation<MasterPage>();
             Container.RegisterTypeForNavigation<NewsPage>();
